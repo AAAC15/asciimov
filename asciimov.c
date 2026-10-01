@@ -41,6 +41,8 @@ void obtainSize(int *x, int *y, float *proportion){
 }
 
 int main(){
+    // borramos si el temp esta ocupado
+    system("rm -f /tmp/asciimov_temp.mp4");
     // definimos la resolucion estandar a la que ffmpeg nos va a mandar los frames
     int imgW = 640;
     int imgH = 480;
@@ -193,10 +195,9 @@ int main(){
     pclose(pipeIn);
     // matamos todo lo q sobre de ffmpeg
     system("killall -q ffmpeg");
+    usleep(10000);
     // borramos el video si viene de url
-    if (access("/tmp/asciimov_temp.mp4", F_OK) == 0) {
-        system("rm -f /tmp/asciimov_temp.mp4");
-    }
+    system("rm -f /tmp/asciimov_temp.mp4");
     // vaciamos el buffer
     free(videoPixels);
     // devolvemos el cursor al terminar
